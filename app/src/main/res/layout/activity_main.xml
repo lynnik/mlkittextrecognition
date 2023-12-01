@@ -12,11 +12,67 @@
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
         android:adjustViewBounds="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/clearButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
         tools:ignore="ContentDescription" />
+
+    <Button
+        android:id="@+id/blocksButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:minWidth="48dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Blocks"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/linesButton"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/linesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:minWidth="48dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Lines"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/elementsButton"
+        app:layout_constraintStart_toEndOf="@id/blocksButton"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/elementsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:minWidth="48dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Elements"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/clearButton"
+        app:layout_constraintStart_toEndOf="@id/linesButton"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/clearButton"
+        style="@style/Widget.Material3.Button.IconButton.Filled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:icon="@drawable/ic_close"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/elementsButton"
+        tools:ignore="HardcodedText,SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

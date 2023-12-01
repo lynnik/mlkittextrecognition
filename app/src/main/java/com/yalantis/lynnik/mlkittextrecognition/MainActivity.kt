@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,11 +15,11 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
-
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupUi()
 
         val bitmap = BitmapFactory.decodeResource(resources, R.drawable.img_lorem_ipsum)
 
@@ -54,6 +55,21 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 showToast(exception.localizedMessage)
             }
+    }
+
+    private fun setupUi() {
+        findViewById<Button>(R.id.blocksButton).setOnClickListener {
+            // TODO
+        }
+        findViewById<Button>(R.id.linesButton).setOnClickListener {
+            // TODO
+        }
+        findViewById<Button>(R.id.elementsButton).setOnClickListener {
+            // TODO
+        }
+        findViewById<Button>(R.id.clearButton).setOnClickListener {
+            // TODO
+        }
     }
 
     private fun showToast(text: CharSequence?) {
