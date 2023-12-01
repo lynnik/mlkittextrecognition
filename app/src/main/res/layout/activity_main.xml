@@ -23,10 +23,11 @@
         android:id="@+id/blocksButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:minWidth="48dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text="Blocks"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/linesButton"
@@ -39,8 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:minWidth="48dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text="Lines"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/elementsButton"
@@ -53,12 +54,26 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:minWidth="48dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text="Elements"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/clearButton"
+        app:layout_constraintEnd_toStartOf="@+id/symbolsButton"
         app:layout_constraintStart_toEndOf="@id/linesButton"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/symbolsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:minWidth="48dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="Symbols"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/clearButton"
+        app:layout_constraintStart_toEndOf="@id/elementsButton"
         tools:ignore="HardcodedText" />
 
     <Button
@@ -72,7 +87,7 @@
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/elementsButton"
+        app:layout_constraintStart_toEndOf="@id/symbolsButton"
         tools:ignore="HardcodedText,SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
