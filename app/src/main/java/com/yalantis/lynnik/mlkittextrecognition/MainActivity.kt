@@ -17,10 +17,18 @@ import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
+// TODO add more images
+// TODO show the recognized text under of the image
 class MainActivity : AppCompatActivity() {
     private val textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
     private var imageView: ImageView? = null
+
+    private val images = arrayOf(
+        R.drawable.img_pixel_4a,
+        R.drawable.img_lorem_ipsum
+    )
+    private var imageIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +40,10 @@ class MainActivity : AppCompatActivity() {
     private fun setupUi() {
         imageView = findViewById(R.id.imageView)
 
+        imageView?.setOnClickListener {
+            updateImageIndex()
+            renderImage()
+        }
         findViewById<Button>(R.id.blocksButton).setOnClickListener {
             renderRecognizedBlocks()
         }
@@ -50,7 +62,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun provideImage(): Bitmap {
-        return BitmapFactory.decodeResource(resources, R.drawable.img_lorem_ipsum)
+        val imageResId = images[imageIndex]
+        return BitmapFactory.decodeResource(resources, imageResId)
+    }
+
+    private fun updateImageIndex() {
+        imageIndex = if (imageIndex == images.size - 1) 0 else imageIndex + 1
     }
 
     private fun renderImage() {
