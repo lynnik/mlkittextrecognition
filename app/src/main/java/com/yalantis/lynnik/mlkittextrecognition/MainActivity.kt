@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.mlkit.vision.common.InputImage
@@ -18,7 +19,6 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
 // TODO add more images
-// TODO show the recognized text under of the image
 class MainActivity : AppCompatActivity() {
     private val textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         imageView?.setOnClickListener {
             updateImageIndex()
             renderImage()
+            renderText(null)
         }
         findViewById<Button>(R.id.blocksButton).setOnClickListener {
             renderRecognizedBlocks()
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.clearButton).setOnClickListener {
             renderImage()
+            renderText(null)
         }
     }
 
@@ -74,11 +76,29 @@ class MainActivity : AppCompatActivity() {
         imageView?.setImageBitmap(provideImage())
     }
 
+    private fun renderText(textBlocks: List<CharSequence>?) {
+        val text = if (textBlocks.isNullOrEmpty()) {
+            null
+        } else {
+            val stringBuilder = StringBuilder()
+            textBlocks.forEach { block ->
+                stringBuilder.append(block)
+                if (block != textBlocks.last()) {
+                    stringBuilder.append("\n\n")
+                }
+            }
+            stringBuilder.toString()
+        }
+        findViewById<TextView>(R.id.textView).text = text
+    }
+
     private fun renderRecognizedBlocks() {
         val bitmap = provideImage()
         recognizeText(bitmap) { blocks ->
             val rectangles = blocks.mapNotNull { it.boundingBox }
             renderRecognizedRectangles(bitmap, rectangles)
+            val textBlocks = blocks.map { it.text }
+            renderText(textBlocks)
         }
     }
 
@@ -88,6 +108,8 @@ class MainActivity : AppCompatActivity() {
             val lines = blocks.map { it.lines }.flatten()
             val rectangles = lines.mapNotNull { it.boundingBox }
             renderRecognizedRectangles(bitmap, rectangles)
+            val textBlocks = blocks.map { it.text }
+            renderText(textBlocks)
         }
     }
 
@@ -98,6 +120,8 @@ class MainActivity : AppCompatActivity() {
             val elements = lines.map { it.elements }.flatten()
             val rectangles = elements.mapNotNull { it.boundingBox }
             renderRecognizedRectangles(bitmap, rectangles)
+            val textBlocks = blocks.map { it.text }
+            renderText(textBlocks)
         }
     }
 
@@ -109,6 +133,8 @@ class MainActivity : AppCompatActivity() {
             val symbols = elements.map { it.symbols }.flatten()
             val rectangles = symbols.mapNotNull { it.boundingBox }
             renderRecognizedRectangles(bitmap, rectangles)
+            val textBlocks = blocks.map { it.text }
+            renderText(textBlocks)
         }
     }
 
