@@ -31,6 +31,13 @@
                 tools:ignore="ContentDescription"
                 tools:src="@drawable/img_pixel_4a" />
 
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginBottom="16dp" />
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"

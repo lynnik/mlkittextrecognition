@@ -13,6 +13,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
@@ -21,6 +24,7 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 // TODO add more images
 class MainActivity : AppCompatActivity() {
     private val textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+    private val languageIdentifier = LanguageIdentification.getClient()
 
     private var imageView: ImageView? = null
 
@@ -44,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             updateImageIndex()
             renderImage()
             renderText(null)
+            recognizeTextLanguage(null)
         }
         findViewById<Button>(R.id.blocksButton).setOnClickListener {
             renderRecognizedBlocks()
@@ -60,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.clearButton).setOnClickListener {
             renderImage()
             renderText(null)
+            recognizeTextLanguage(null)
         }
     }
 
@@ -76,6 +82,22 @@ class MainActivity : AppCompatActivity() {
         imageView?.setImageBitmap(provideImage())
     }
 
+    private fun renderRecognizedLanguage(vararg languages: String?) {
+        val chipGroup = findViewById<ChipGroup>(R.id.chipGroup)
+        chipGroup.removeAllViews()
+        languages
+            .mapNotNull { it }
+            .forEach { language ->
+                val chip = Chip(
+                    this,
+                    null,
+                    com.google.android.material.R.style.Widget_Material3_Chip_Suggestion
+                )
+                chip.text = language
+                chipGroup.addView(chip)
+            }
+    }
+
     private fun renderText(textBlocks: List<CharSequence>?) {
         val text = if (textBlocks.isNullOrEmpty()) {
             null
@@ -89,6 +111,7 @@ class MainActivity : AppCompatActivity() {
             }
             stringBuilder.toString()
         }
+        text?.let { recognizeTextLanguage(it) }
         findViewById<TextView>(R.id.textView).text = text
     }
 
@@ -154,6 +177,24 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 showToast(exception.localizedMessage)
             }
+    }
+
+    private fun recognizeTextLanguage(text: CharSequence?) {
+        if (text == null) {
+            renderRecognizedLanguage(null)
+        } else {
+            languageIdentifier.identifyLanguage(text.toString())
+                .addOnSuccessListener { languageCode ->
+                    if (languageCode == "und") {
+                        showToast("Can't identify language")
+                        return@addOnSuccessListener
+                    }
+                    renderRecognizedLanguage(languageCode)
+                }
+                .addOnFailureListener { exception ->
+                    showToast(exception.localizedMessage)
+                }
+        }
     }
 
     private fun renderRecognizedRectangles(bitmap: Bitmap, rectangles: List<Rect>) {
