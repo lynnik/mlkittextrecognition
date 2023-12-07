@@ -21,7 +21,6 @@ import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
-// TODO add more images
 class MainActivity : AppCompatActivity() {
     private val textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
     private val languageIdentifier = LanguageIdentification.getClient()
@@ -30,7 +29,11 @@ class MainActivity : AppCompatActivity() {
 
     private val images = arrayOf(
         R.drawable.img_pixel_4a,
-        R.drawable.img_lorem_ipsum
+        R.drawable.img_lorem_ipsum,
+        R.drawable.img_german,
+        R.drawable.img_japanese,
+        R.drawable.img_korean,
+        R.drawable.img_ukrainian
     )
     private var imageIndex = 0
 
