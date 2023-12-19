@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         R.drawable.img_pixel_4a,
         R.drawable.img_lorem_ipsum,
         R.drawable.img_german,
+        R.drawable.img_mono,
+        R.drawable.img_grocery_receipt,
         R.drawable.img_japanese,
         R.drawable.img_korean,
         R.drawable.img_ukrainian
@@ -97,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                     com.google.android.material.R.style.Widget_Material3_Chip_Suggestion
                 )
                 chip.text = language
+                chip.textSize = chip.textSize
                 chipGroup.addView(chip)
             }
     }

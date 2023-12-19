@@ -45,6 +45,7 @@
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginBottom="16dp"
                 android:textColor="@color/black"
+                android:textSize="40sp"
                 tools:text="@tools:sample/lorem/random" />
 
         </LinearLayout>
